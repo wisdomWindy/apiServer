@@ -1,0 +1,32 @@
+{
+  "name": "apiserver",
+  "version": "1.0.0",
+  "description": "个人简单api服务器",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wisdomWindy/simpleApiServer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wisdomWindy/simpleApiServer/issues"
+  },
+  "homepage": "https://github.com/wisdomWindy/simpleApiServer#readme",
+  "devDependencies": {
+    "@escook/express-joi": "^1.1.1",
+    "@hapi/joi": "^17.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "express-jwt": "^5.3.3",
+    "joi": "^17.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "multer": "^1.4.4",
+    "mysql": "^2.18.1"
+  }
+}
