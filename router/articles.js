@@ -1,8 +1,5 @@
 const express = require('express');
 const expressjoi = require('@escook/express-joi');
-const multer = require('multer');
-const path = require('path');
-const uploads = multer({dest:path.join(__dirname, '../uploads')});
 const {
   add_article_schema,
   get_article_byId_schema,
@@ -13,7 +10,7 @@ const {
 const router = express.Router();
 const articles = require('../router_handler/articles');
 
-router.post('/addNewArticle', uploads.single('cover_img'), expressjoi(add_article_schema), articles.addNewArticle);
+router.post('/addNewArticle', expressjoi(add_article_schema), articles.addNewArticle);
 router.post('/getArticles', articles.getArticles);
 router.post('/getArticleById', expressjoi(get_article_byId_schema), articles.getArticleById);
 router.post('/deleteArticleById', expressjoi(delete_article_ById_schema), articles.deleteArticleById);

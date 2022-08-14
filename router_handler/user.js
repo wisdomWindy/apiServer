@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 exports.register = (req, res) => {
   const userInfo = req.body;
   db.query('SELECT * FROM env_users WHERE username=?', userInfo.username, (err, results) => {
-    console.log(results);
     if (err) {
       return res.cc(400, err);
     }

@@ -1,26 +1,33 @@
 const db = require("../db");
 const path = require('path');
 const e = require("express");
+const formidable = require('formidable');
 // 发布新文章
 exports.addNewArticle = function (req, res) {
-  let data = req.body;
-  let file = req.file;
-  let cover_img = path.join(__dirname, '../uploads/', file.filename);
-  let pub_date = new Date();
-  if (!file || file.fieldname !== 'cover_img') return res.cc(400, '文章封面为必选参数');
-  console.log(data)
-  let sql = `INSERT INTO env_articles (title, state, pub_date, content, cover_img, cate_id, author_id) VALUES 
-  ('${data.title}', '${data.state}', '${pub_date}', '${data.content}', '${cover_img}', ${data.cate_id}, ${data.author_id})`;
-  db.query(sql, (err, results) => {
-    if (err) return res.cc(err);
-    if (results.affectedRows) {
-      res.send({
-        code: 200,
-        message: '发布文章成功'
-      });
-    } else {
-      res.cc(400, '发布文章失败');
+  let form = new formidable.IncomingForm({ multiples: true, uploadDir: path.join(__dirname, '..', 'uploads'), keepExtensions: true });
+  form.parse(req, function (err, fields, files) {
+    if (err) {
+      res.send(err);
+      return;
     }
+    let data = req.body;
+    let file = files[cover_img];
+    let cover_img = path.join(__dirname, '../uploads/', file.newFilename);
+    let pub_date = new Date();
+    if (!file || file.fieldname !== 'cover_img') return res.cc(400, '文章封面为必选参数');
+    let sql = `INSERT INTO env_articles (title, state, pub_date, content, cover_img, cate_id, author_id) VALUES 
+  ('${data.title}', '${data.state}', '${pub_date}', '${data.content}', '${cover_img}', ${data.cate_id}, ${data.author_id})`;
+    db.query(sql, (err, results) => {
+      if (err) return res.cc(err);
+      if (results.affectedRows) {
+        res.send({
+          code: 200,
+          message: '发布文章成功'
+        });
+      } else {
+        res.cc(400, '发布文章失败');
+      }
+    });
   });
 }
 
