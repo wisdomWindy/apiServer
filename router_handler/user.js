@@ -35,7 +35,9 @@ exports.login = (req, res) => {
        return res.cc(400, err);
      }
      if (results.length > 0) {
+      // 得到用户信息用于加密
        let user = {...results[0], password:'', user_pic:''};
+       // 把用户的所有信息作为整体进行加密
        let token = jwt.sign(user, config.apisecret, {
          expiresIn:config.expiresIn
        });
